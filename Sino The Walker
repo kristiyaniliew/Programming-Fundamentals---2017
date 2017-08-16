@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Exam___prepartion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var time = Console.ReadLine().Split(':').ToList();
+            int stepsToHome = int.Parse(Console.ReadLine());
+            int timeForStep = int.Parse(Console.ReadLine());
+            int timeToSeconds = 0;
+
+            timeToSeconds = int.Parse(time[0]) * 3600 + int.Parse(time[1])* 60 + int.Parse(time[2]);
+
+            int timeNeededInSeconds = timeToSeconds + (stepsToHome * timeForStep);
+            
+            int seconds = timeNeededInSeconds % 60;
+            int minutes = (timeNeededInSeconds / 60)%60;
+            
+            int hours = (timeNeededInSeconds / 3600)%24;
+            Console.WriteLine("Time Arrival: {0:d2}:{1:d2}:{2:d2}",hours,minutes,seconds);
+            Console.WriteLine(seconds);
+            Console.WriteLine(minutes);
+            Console.WriteLine(hours);
+
+        }
+    }
+}
