@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp10
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var sepeartor2 = new string[] { ", " };
+            var allPlayers = Console.ReadLine().Split(sepeartor2, StringSplitOptions.None).ToList();
+            var allSongs = Console.ReadLine().Split(sepeartor2, StringSplitOptions.None).ToList();
+            var awardsByPlayer = new Dictionary<string, List<string>>();
+            foreach (var player in allPlayers)
+            {
+                awardsByPlayer[player] = new List<string>();
+            }
+
+            var input = Console.ReadLine();
+            while (input != "dawn")
+            {
+                var commandList = input.Split(sepeartor2, StringSplitOptions.RemoveEmptyEntries).ToList();
+                var name = commandList[0];
+                var songs = commandList[1];
+                var award = commandList[2];
+                if (allPlayers.Contains(name)&&allSongs.Contains(songs))
+                {
+                    awardsByPlayer[name].Add(award);
+                }
+
+　
+                input = Console.ReadLine();
+            }
+            var personwithAwards = awardsByPlayer.Where(x=>x.Value.Count>0).OrderByDescending(x => x.Value.Count).ThenBy(x => x.Key);
+            foreach (var item in personwithAwards)
+            {
+                Console.WriteLine($"{item.Key}: {item.Value.Distinct().Count()} awards" );
+                Console.WriteLine("--" + string.Join("\n" +"--",item.Value.Distinct()));
+            }
+
+　
+        }
+    }
+}
