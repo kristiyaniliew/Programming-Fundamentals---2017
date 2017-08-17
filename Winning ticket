@@ -1,129 +1,66 @@
 using System;
-
 using System.Collections.Generic;
-
 using System.Linq;
-
 using System.Text;
-
 using System.Threading.Tasks;
-
 using System.Text.RegularExpressions;
 
-
 namespace ConsoleApp10
-
 {
-
     class Program
-
     {
-
         static void Main(string[] args)
-
         {
-
             var separators = new string[] { " ", "," };
-
             var tickets = Console.ReadLine().Split(separators, StringSplitOptions.RemoveEmptyEntries).ToArray();
-
             foreach (var ticket in tickets)
-
             {
-
                 if (ticket.Length!=20)
-
                 {
-
                     Console.WriteLine("invalid ticket");
-
                 }
-
                 else
-
                 {
-
                     var leftSide = new string(ticket.Take(ticket.Length / 2).ToArray());
-
                     var rightSide = new string(ticket.Skip(ticket.Length / 2).Take(ticket.Length / 2).ToArray());
-
                     var maxSequLeft = FindingSequnce(leftSide);
-
                     var maxSequRight = FindingSequnce(rightSide);
-
                     if (maxSequLeft.Length>=6 && maxSequRight.Length>=6 && maxSequLeft[0]==maxSequRight[0] && "$#@^".Contains(maxSequLeft[0]))
-
                     {
-
                         Console.Write($"ticket \"{ticket}\" - {maxSequLeft.Length}{maxSequLeft[0]}");
-
                         if (maxSequLeft.Length==10 )
-
                         {
-
                             Console.Write(" Jackpot!");
-
                         }
-
                         Console.WriteLine();
-
                     }
-
                     else
-
                     {
-
                         Console.WriteLine($"ticket \"{ticket}\" - no match");
-
                     }
-
                 }
-
             }
-
         }
-
 
         private static string FindingSequnce(string s)
-
         {
-
             var bestStr = "" +(s[0]);
-
             var max = 0;
-
             for (int i = 0; i < s.Length-1; i++)
-
             {
-
                 var ch = s[i];
-
                 var count = 1;
-
                 while (count+i<s.Length && s[count+i]==s[i])
-
                 {
-
                     count++;
-
                     if (count>max)
-
                     {
-
                         max = count;
-
                         bestStr = s.Substring(i, count);
-
                     }
-
                 }
-
             }
-
             return bestStr;
-
         }
-
     }
-
 }
